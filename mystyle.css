@@ -1,21 +1,44 @@
 #calculator {
 	background-color:powderblue;
-	height:53vh;
-	width:60vh;
+	height:60vh;
+	width:60vw;
 	overflow:auto;
-	
 }
 
+@media only screen and (max-width: 720px){
+	#calculator{
+		height: 80vh;
+		width: 95vw;
+	}
+
+}
+
+#buttons{
+	margin:3vh auto;
+	width: 90%;
+}
 .b{
 	margin: 0 auto;
-	padding:15px;
-	width:7.5vh;
+	width:7.5vw;
 	font-size:3vh;
 	height: 7.5vh;
 	font-weight: bold;
-	margin-bottom:5%;
-	margin-left:5%;
+	margin-bottom:1.5vh;
+	margin-left:0.75vw;
+	margin-right: 0.75vw;
+	margin-top: 0.5vh;
 	background-color: beige;
+}
+
+@media only screen and (max-width: 720px){
+	.b{
+		margin:0 auto;
+		width: 12vw;
+		margin-bottom: 5vh;
+		margin-top: 1vh;
+		margin-right: 1vw;
+		margin-left: 1vw;
+	}
 }
 
 #screen{
@@ -23,15 +46,14 @@
 	overflow-y: hidden;
 	align-self: center;
 	height:10vh;
-	width:50vh;
+	width:90%;
 	font-size: 35vh;
 	min-height:40px;
 	background-color: white;
-	border-style:solid;
-	border-color: powderblue;
 	font-size:8vh;
 	text-align: right;
-	margin:0 auto;
+	margin-top: 4.5vh;
+	margin:3vh auto;
 	scroll-behavior: smooth;
 }
 
@@ -43,10 +65,21 @@
 
 #m,#a,#d,#s{
 	background-color: rgb(207, 177, 177);
+	margin-left: 3vw;
 }
 
-#ce,#back,#enter{
+#ce,#back{
 	background-color: silver;
+	margin-left: 3vw;
 }
 
+#enter{
+	background-color: burlywood;
+	margin-left:3vw;
+}
 
+@media only screen and (max-width: 1080px){
+	#m,#a,#d,#s,#ce,#back,#enter{
+		margin-left: 5vw;
+	}
+}
