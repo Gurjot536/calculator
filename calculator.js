@@ -1,6 +1,6 @@
 /**
  * Author: Gurjot Sandhu
- * last edited 2020-08-05
+ * last edited 2020-08-07
  * A basic four function calculator
  */
 
@@ -247,5 +247,5 @@ enter.onclick = function(){
 }
 
 function scrollRight(){
-	screen.scrollLeft +=50;
+	screen.scrollLeft +=10000;
 }
