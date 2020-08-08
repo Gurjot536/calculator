@@ -1,0 +1,52 @@
+#calculator {
+	background-color:powderblue;
+	height:53vh;
+	width:60vh;
+	overflow:auto;
+	
+}
+
+.b{
+	margin: 0 auto;
+	padding:15px;
+	width:7.5vh;
+	font-size:3vh;
+	height: 7.5vh;
+	font-weight: bold;
+	margin-bottom:5%;
+	margin-left:5%;
+	background-color: beige;
+}
+
+#screen{
+	overflow: auto;
+	overflow-y: hidden;
+	align-self: center;
+	height:10vh;
+	width:50vh;
+	font-size: 35vh;
+	min-height:40px;
+	background-color: white;
+	border-style:solid;
+	border-color: powderblue;
+	font-size:8vh;
+	text-align: right;
+	margin:0 auto;
+	scroll-behavior: smooth;
+}
+
+#add_space, #add_space_1{
+	color: powderblue;
+	border: none;
+	background-color: powderblue;
+}
+
+#m,#a,#d,#s{
+	background-color: rgb(207, 177, 177);
+}
+
+#ce,#back,#enter{
+	background-color: silver;
+}
+
+
