@@ -1,6 +1,6 @@
 /**
  * Author: Gurjot Sandhu
- * last edited 2020-08-07
+ * last edited 2020-08-13
  * A basic four function calculator
  */
 
@@ -263,12 +263,12 @@ enter.onclick = function(){
 	}
 	parseInt();
 	Calculate();
-	if(allNums[0] <= 0.0000099 || allNums[0] >= 100000000){
+	if(Math.abs(allNums[0]) <= 0.0000099 || Math.abs(allNums[0]) >= 100000000){
 		screenVal = ""+allNums[0].toExponential(7);
 		screen.innerHTML = screenVal;
 		screen.scrollLeft = 0;
 		
-	}else if((allNums[0]%1).toString().length >= 12){
+	}else if((Math.abs(allNums[0])%1).toString().length >= 12){
 		screenVal = ""+allNums[0].toFixed(6);
 		screen.innerHTML = screenVal;
 		screen.scrollLeft = 0;
