@@ -57,11 +57,7 @@
 	scroll-behavior: smooth;
 }
 
-#add_space, #add_space_1{
-	color: powderblue;
-	border: none;
-	background-color: powderblue;
-}
+
 
 #m,#a,#d,#s{
 	background-color: rgb(207, 177, 177);

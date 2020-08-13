@@ -11,6 +11,8 @@ var s = document.getElementById('s');
 var se = document.getElementById('ce');
 var back = document.getElementById('back');
 var enter = document.getElementById('enter');
+var neg = document.getElementById('neg');
+var decimal = document.getElementById('decimal');
 
 var buttons = [];
 
@@ -23,50 +25,55 @@ for(var i = 0; i <= 9; i++){
 var screen = document.getElementById('screen');
 
 var operator = ['×','+','÷','−'];
+var operatorNegDec = ['×','+','÷','−','-','.'];
 
 var screenVal = "";
+var isDecimal = false;
 
 m.onclick = function(){
-	for(var i = 0; i< operator.length; i++){
-		if(screenVal.charAt(screenVal.length-1) === operator[i]){
-			return false;
-		}
-	}
+	if(validNextEntry()){
 	updateScreen(operator[0]);
 	scrollRight();
+	}
 }
 a.onclick =function(){
-	for(var i = 0; i< operator.length; i++){
-		if(screenVal.charAt(screenVal.length-1) === operator[i]){
-			return false;
-		}
+	if(validNextEntry()){
+		updateScreen(operator[1]);
+		scrollRight();
 	}
-	updateScreen(operator[1]);
-	scrollRight();
 }
 d.onclick = function(){
-	for(var i = 0; i< operator.length; i++){
-		if(screenVal.charAt(screenVal.length-1) === operator[i]){
-			return false;
-		}
+	if(validNextEntry()){
+		updateScreen(operator[2]);
+		scrollRight();
 	}
-	updateScreen(operator[2]);
-	scrollRight();
 }
 s.onclick = function(){
-	for(var i = 0; i< operator.length; i++){
-		if(screenVal.charAt(screenVal.length-1) === operator[i]){
-			return false;
-		}
+	if(validNextEntry()){
+		updateScreen(operator[3]);
+		scrollRight();
 	}
-	updateScreen(operator[3]);
+}
+neg.onclick = function(){
+	if(screenVal.charAt(screenVal.length-1) === '-' || isNum(screenVal.charAt(screenVal.length-1))){
+		return false;
+	}
+	updateScreen('-');
 	scrollRight();
+}
+decimal.onclick = function(){
+	if((!validNextEntry() || screenVal.length ==0) && screenVal.charAt(screenVal.length-1) !== '.'){
+		updateScreen('0.');
+		scrollRight();
+	}else if(isNum(screenVal.charAt(screenVal.length-1))){
+		updateScreen('.');
+		scrollRight();
+	}
 }
 
 ce.onclick = function(){
 	screenVal = "";
 	screen.innerHTML = screenVal;
-	mads = [false,false,false,false];
 	allNums = [];
 	allNumsPos = 0;
 	operations = [];
@@ -125,6 +132,19 @@ function updateScreen(value){
 	screen.innerHTML = screenVal;
 }
 
+//Checks to make sure the next entry is n
+function validNextEntry(){
+	if(screenVal.length === 0){
+		return false;
+	}
+	for(var i = 0; i< operatorNegDec.length; i++){
+		if(screenVal.charAt(screenVal.length-1) === operatorNegDec[i]){
+			return false;
+		}
+	}
+	return true;
+}
+
 //Checks to see if the given input is valid to compute (the first and last characters are numbers and if it contains an operator)
 function validEntry(){
 	if((isNum(Number(screenVal.charAt(0))) || screenVal.charAt(0) == '-') && isNum(Number(screenVal.charAt(screenVal.length-1))) ){
@@ -142,6 +162,9 @@ function validEntry(){
 
 //Checks if the given char is a numeral or not
 function isNum(value){
+	if(screenVal.length == 0){
+		return false;
+	}
 	for(var n = 0; n <= 9; n++){
 		if(value == n){
 			return true;
@@ -192,19 +215,19 @@ function Calculate(){
 
 
 	if(validEntry()){
-	for(var i = 0; i < numOfOp; i++){
+
 		for(var j = 1; j< allNums.length-1; j++){
 			if(allNums[j] == operator[0]){
 				temp1 = allNums[j-1];
 				temp2 = allNums[j+1];
 				allNums.splice(j-1,3,temp1*temp2);
-				j=1;
+				j=0;
 				console.log(allNums);
-			} if(allNums[j]==operator[2]){
+			}else if(allNums[j]==operator[2]){
 				temp1 = allNums[j-1];
 				temp2 = allNums[j+1];
 				allNums.splice(j-1,3,temp1/temp2);
-				j=1;
+				j=0;
 				console.log(allNums);
 			}
 			
@@ -215,22 +238,22 @@ function Calculate(){
 				temp1 = allNums[k-1];
 				temp2 = allNums[k+1];
 				allNums.splice(k-1,3,temp1+temp2);
-				k =1;
+				k =0;
 				console.log(allNums);
-			} if(allNums[k] == operator[3]){
+			} else if(allNums[k] == operator[3]){
 				temp1 = allNums[k-1];
 				temp2 = allNums[k+1];
 				allNums.splice(k-1,3,temp1-temp2);
-				k=1;
+				k=0;
 				console.log(allNums);
 			}
 		}
 	}
-	}
+	
 }
 
 enter.onclick = function(){
-	if(screenVal.length == 1){
+	if(!validEntry()){
 		return;
 	}
 	for(var i = 0; i< operator.length; i++){
@@ -240,10 +263,22 @@ enter.onclick = function(){
 	}
 	parseInt();
 	Calculate();
+	if(allNums[0] <= 0.0000099 || allNums[0] >= 100000000){
+		screenVal = ""+allNums[0].toExponential(7);
+		screen.innerHTML = screenVal;
+		screen.scrollLeft = 0;
+		
+	}else if((allNums[0]%1).toString().length >= 12){
+		screenVal = ""+allNums[0].toFixed(6);
+		screen.innerHTML = screenVal;
+		screen.scrollLeft = 0;
+	}else{
+		screenVal = ""+allNums[0];
+		screen.innerHTML = screenVal;
+		screen.scrollLeft = 0;
+	}
 
 	screenVal = ""+allNums[0];
-	screen.innerHTML = screenVal;
-	screen.scrollLeft = 0;
 }
 
 function scrollRight(){
